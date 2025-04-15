@@ -57,8 +57,6 @@
 	
 	    scroll-layers = <2>;
 	    snipe-layers = <3>;
-	    
-	    input-mode = "mouse";  // додай це, щоб явно задати режим "миша"
 	};
 };
 
