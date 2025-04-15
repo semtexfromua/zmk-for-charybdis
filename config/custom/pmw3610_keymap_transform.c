@@ -6,7 +6,7 @@
 #include <zmk/events/layer_state_changed.h>
 
 #define SENSITIVITY 8
-#define TARGET_LAYER 2 // Шар, на якому працює дана поведінка
+#define TARGET_LAYER 1 // Шар, на якому працює дана поведінка
 
 static bool active_layer = false;
 
