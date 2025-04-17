@@ -56,7 +56,6 @@
 	    irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
 	    arrow-layers = <1>;
 	    scroll-layers = <2>;
-
 	    snipe-layers = <3>;
 
 	};
