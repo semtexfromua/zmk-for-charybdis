@@ -1,5 +1,16 @@
 on: [push, pull_request, workflow_dispatch]
 
-jobs:
-  build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+jobs: # Це верхній рівень, відступ 0 пробілів
+  build: # Це визначення job 'build', відступ 2 пробіли
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main # <-- Ваш рядок uses:, відступ 4 пробіли
+    id: build_firmware_step # <-- id кроку uses:, відступ 6 пробілів
+    with: # <-- Параметри для uses:, відступ 6 пробілів
+      # Ваші параметри (board, shield, zmk_config тощо), відступ 8 пробілів
+      # ...
+
+    steps: # <-- БЛОК steps: ДЛЯ ЦЬОГО Ж JOB 'build', відступ 4 пробіли
+      - name: Upload .config file # <-- Перший крок у блоці steps:, відступ 6 пробілів
+        uses: actions/upload-artifact@v4 # <-- uses: для action, відступ 8 пробілів
+        with: # <-- Параметри для action, відступ 8 пробілів
+          name: build-config-${{ github.event.pull_request.number }}-${{ github.sha }} # <-- Параметр name, відступ 10 пробілів
+          path: ${{ steps.build_firmware_step.outputs.build_dir }}/zephyr/.config # <-- Параметр path, відступ 10 пробілів
