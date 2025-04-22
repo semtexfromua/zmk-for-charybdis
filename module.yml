@@ -1,0 +1,11 @@
+name: zmk-config
+
+build:
+  settings:
+    dts_root: "config"
+    dts_overlays: "config"
+    dts_bindings:
+      - config/dts/bindings
+    kconfig: "config"
+    board_root: "config"
+    cmake_ext: true
