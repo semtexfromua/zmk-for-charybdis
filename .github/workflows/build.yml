@@ -1,5 +1,33 @@
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+  build: # Знайдіть цей рядок у вашому файлі - це job збірки
+    # ... інші налаштування job build (наприклад, runs-on) ...
+
+    steps: # <--- Знайдіть або додайте цей блок steps під job build
+           # Відступ цього рядка визначає базовий рівень для всіх кроків.
+
+      # ... інші кроки ДО виклику reusable workflow (наприклад, Checkout Code) ...
+
+      - name: Run Reusable Build Workflow # <--- Знайдіть цей крок, який викликає reusable workflow ZMK
+        # Рядок "- name:" має той самий відступ, що й інші кроки в цьому блоці steps.
+        id: build_step # <--- ПЕРЕКОНАЙТЕСЬ, ЩО ЦЕЙ id Є і ЗАПИСАНИЙ САМЕ ТАК
+        uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+        with:
+          # Ваші параметри board, shield, zmk_config тощо йдуть тут
+          # Вони мають більший відступ, ніж uses:
+          board: nice_nano_v2
+          shield: charybdis_right
+          zmk_config: ${{ github.workspace }}/config
+          # ... інші ваші параметри ...
+
+      - name: Print .config content # <--- ДОДАЙТЕ ЦЕЙ НОВИЙ КРОК ВІДРАЗУ ПІСЛЯ ПОПЕРЕДНЬОГО
+        # Цей рядок "- name:" має той самий відступ, що й рядок "- name:" кроку uses:
+        run: | # <--- Цей рядок "run:" має більший відступ, ніж "- name:".
+          echo "--- Start of .config ---" # <--- Рядки під "run: |" мають ще більший відступ.
+          cat ${{ steps.build_step.outputs.build_dir }}/zephyr/.config # Використовуємо id попереднього кроку для шляху до build_dir
+          echo "--- End of .config ---"
+        shell: bash # <--- Цей рядок має той самий відступ, що й "name:" і "run:".
+        # Кінець нового кроку Print .config content
+
+      # ... тут можуть бути інші кроки ПІСЛЯ нашого ...
