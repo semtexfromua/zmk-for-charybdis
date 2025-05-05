@@ -1,9 +1,9 @@
 # ZMK Charybdis Custom Config
 
 ## Особливості
-- Оригінальний драйвер PMW3610 (inorichi/zmk-pmw3610-driver)
-- Кастомний input processor для CARET-режиму (pointer-to-caret)
-- Підтримка SCROLL/SNIPE/CARET режимів через DeviceTree
+- Драйвер PMW3610: [badjeff/zmk-pmw3610-driver](https://github.com/badjeff/zmk-pmw3610-driver)
+- Підтримка SCROLL/SNIPE/CARET режимів через DeviceTree та input processors
+- Кастомний CARET-режим (pointer-to-caret) реалізується через input processor (overlay)
 
 ## Як це працює
 - На шарі 1 трекбол працює як стрілки (CARET-режим)
@@ -19,13 +19,13 @@
 3. Завантажте прошивку на пристрій.
 
 ## Як це налаштувати
-- Поріг для CARET-режиму (чутливість) — у charybdis.dtsi, параметр `caret-tick`.
-- Шар для CARET-режиму — у charybdis_right.overlay, секція `caret { layers = <1>; ... }`.
-- Кастомний processor у src/pointer_to_caret_key.c
+- Параметри драйвера (CPI, інверсія, awake, IRQ) — у overlay (див. README драйвера)
+- Поріг для CARET-режиму (чутливість) — у input processor overlay
+- Шар для CARET-режиму — у overlay, секція `caret { layers = <1>; ... }`
 
 ## Troubleshooting
 - Якщо не працює CARET-режим — перевірте, що шар 1 активується у keymap.
-- Якщо не компілюється src/ — переконайтесь, що є src/CMakeLists.txt і build.yaml містить extra-cmake-modules.
+- Якщо не компілюється — перевірте, що драйвер підключено через west.yml.
 - Якщо west update падає — перевірте, що у west.yml немає зайвих проектів.
 
 ## Контакти/Питання
