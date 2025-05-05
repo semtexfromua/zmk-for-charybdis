@@ -12,7 +12,5 @@ manifest:
     - name: zmk-pmw3610-driver
       remote: inorichi
       revision: main
-    - name: custom-caret-processor
-      path: src
   self:
     path: config
