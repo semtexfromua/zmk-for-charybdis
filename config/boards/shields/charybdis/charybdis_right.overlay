@@ -74,6 +74,7 @@
         compatible = "zmk,input-processor-caret";
         #input-processor-cells = <0>;
         caret-tick = <10>;
+        track_remainders = <0>;
     };
 
     trackball_listener: trackball_listener {
