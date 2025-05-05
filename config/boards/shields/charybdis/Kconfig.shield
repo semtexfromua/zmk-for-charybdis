@@ -3,3 +3,6 @@ config SHIELD_CHARYBDIS_LEFT
 
 config SHIELD_CHARYBDIS_RIGHT
     def_bool $(shields_list_contains,charybdis_right)
+
+# Додаємо опцію для кастомного input processor
+# source "src/Kconfig.caret"

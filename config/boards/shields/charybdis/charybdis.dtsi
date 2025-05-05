@@ -34,4 +34,12 @@
 	    , <&pro_micro 9 (GPIO_ACTIVE_HIGH)>
             ;
 	};
+
+    input_processors {
+        pointer_to_caret_key: pointer_to_caret_key {
+            compatible = "zmk,input-processor-caret";
+            #input-processor-cells = <0>;
+            caret-tick = <10>; // Можна зробити параметром
+        };
+    };
 };
