@@ -17,5 +17,5 @@ shield: [ "charybdis_left", "charybdis_right", "settings_reset" ]
 #     shield: settings_reset
 
 # Додаємо src/ як додатковий модуль, якщо потрібно
-# extra-cmake-modules:
-#   - src
+extra-cmake-modules:
+  - src
