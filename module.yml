@@ -9,3 +9,5 @@ build:
     kconfig: "config"
     board_root: "config"
     cmake_ext: true
+    
+module_name: CHARYBDIS
