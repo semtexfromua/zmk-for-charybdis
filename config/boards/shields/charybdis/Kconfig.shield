@@ -5,4 +5,12 @@ config SHIELD_CHARYBDIS_RIGHT
     def_bool $(shields_list_contains,charybdis_right)
 
 # Додаємо опцію для кастомного input processor
-source "src/Kconfig.caret"
+# Kconfig для CARET процесора
+
+config INPUT_PROCESSOR_CARET
+	bool "Support for ZMK caret input processor"
+	default n
+	depends on ZMK_MOUSE
+	help
+	  This option enables support for the caret input processor,
+	  which converts trackball movements to arrow key presses.
