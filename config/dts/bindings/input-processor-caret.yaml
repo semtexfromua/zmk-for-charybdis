@@ -10,3 +10,7 @@ properties:
     type: int
     required: false
     description: Delta threshold for arrow key press 
+  track_remainders:
+    type: int
+    required: false
+    description: Whether to track movement remainders (0 for false, non-zero for true) 
