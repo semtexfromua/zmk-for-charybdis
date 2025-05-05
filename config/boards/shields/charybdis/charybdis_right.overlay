@@ -63,17 +63,19 @@
     };
 };
 
-pointer_to_caret_key: pointer_to_caret_key {
-    compatible = "zmk,input-processor-caret";
-    caret-tick = <10>;
-};
+/ {
+    pointer_to_caret_key: pointer_to_caret_key {
+        compatible = "zmk,input-processor-caret";
+        caret-tick = <10>;
+    };
 
-trackball_listener: trackball_listener {
-    compatible = "zmk,input-listener";
-    status = "okay";
-    device = <&trackball>;
-    caret {
-        layers = <1>;
-        input-processors = <&pointer_to_caret_key>;
+    trackball_listener: trackball_listener {
+        compatible = "zmk,input-listener";
+        status = "okay";
+        device = <&trackball>;
+        caret {
+            layers = <1>;
+            input-processors = <&pointer_to_caret_key>;
+        };
     };
 };
