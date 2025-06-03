@@ -5,7 +5,12 @@
  */
  
 #include "charybdis.dtsi"
-#include <input/processors.dtsi>
+
+/ {
+    chosen {
+        zephyr,display = &oled;
+    };
+};
 
 &default_transform {
     col-offset = <6>;
@@ -39,6 +44,21 @@
             low-power-enable;
         };
     };
+
+    i2c1_default: i2c1_default {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 22)>,
+                <NRF_PSEL(TWIM_SCL, 0, 24)>;
+        };
+    };
+
+    i2c1_sleep: i2c1_sleep {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 22)>,
+                <NRF_PSEL(TWIM_SCL, 0, 24)>;
+            low-power-enable;
+        };
+    };
 };
 
 &spi0 {
@@ -51,39 +71,44 @@
 
     trackball: trackball@0 {
         status = "okay";
-        compatible = "zmk,pmw3610";
+        compatible = "pixart,pmw3610";
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        
-        /* Налаштування роздільної здатності (200-3200, крок 200) */
-        cpi = <3200>;
-        
-        /* Налаштування типу подій */
-        evt-type = <INPUT_EV_REL>;
-        x-input-code = <INPUT_REL_X>;
-        y-input-code = <INPUT_REL_Y>;
-        
-        /* Примусово тримати сенсор увімкненим */
-        force-awake;
+         /*   optional features   */
+        scroll-layers = <2>;
+        caret-layers = <1>;
+        snipe-layers = <3>;
+    };
+};
+
+&i2c1 {
+    status = "okay";
+    compatible = "nordic,nrf-twim";
+    pinctrl-0 = <&i2c1_default>;
+    pinctrl-1 = <&i2c1_sleep>;
+    pinctrl-names = "default", "sleep";
+
+    oled: ssd1306@3c {
+        compatible = "solomon,ssd1306fb";
+        reg = <0x3c>;
+        width = <128>;
+        height = <32>;
+        segment-offset = <0>;
+        page-offset = <0>;
+        display-offset = <0>;
+        multiplex-ratio = <31>;
+        segment-remap;
+        com-invdir;
+        com-sequential;
+        prechargep = <0x22>;
     };
 };
 
 / {
-    pointer_to_caret_key: pointer_to_caret_key {
-        compatible = "zmk,input-processor-caret";
-        #input-processor-cells = <0>;
-        caret-tick = <10>;
-        track_remainders = <0>;
-    };
+  trackball_listener {
+    compatible = "zmk,input-listener";
+    device = <&trackball>;
 
-    trackball_listener: trackball_listener {
-        compatible = "zmk,input-listener";
-        status = "okay";
-        device = <&trackball>;
-        caret {
-            layers = <1>;
-            input-processors = <&pointer_to_caret_key>;
-        };
-    };
+  };
 };
