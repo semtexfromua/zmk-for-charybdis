@@ -1,0 +1,16 @@
+# Copyright (c) 2024 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+compatible: "zmk,input-processor-caret"
+
+description: Custom input processor for pointer-to-caret (arrow keys).
+
+properties:
+  caret-tick:
+    type: int
+    required: false
+    description: Delta threshold for arrow key press 
+  track_remainders:
+    type: int
+    required: false
+    description: Whether to track movement remainders (0 for false, non-zero for true) 

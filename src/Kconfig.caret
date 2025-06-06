@@ -1,0 +1,9 @@
+# Опції конфігурації для кастомного input processor для caret режиму
+
+config INPUT_PROCESSOR_CARET
+	bool "Support for ZMK caret input processor"
+	default n
+	depends on ZMK_MOUSE
+	help
+	  This option enables support for the caret input processor,
+	  which converts trackball movements to arrow key presses. 
